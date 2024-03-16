@@ -1,21 +1,66 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import {
+    Button,
+    Flex,
+    Heading,
+    Stack,
+    Text,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure,
+} from "@chakra-ui/react";
+import { Head } from "@inertiajs/react";
+import { useEffect } from "react";
 
 export default function Dashboard({ auth }) {
-    return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
-        >
-            <Head title="Dashboard" />
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    useEffect(() => {
+        console.log("useEffect process 🪄");
+        console.log({ auth });
+    }, []);
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">You're logged in!</div>
-                    </div>
-                </div>
-            </div>
-        </AuthenticatedLayout>
+    return (
+        <>
+            <Head title="Dashboard" />
+            <Stack p={"100px"} gap={10}>
+                <Stack gap={5}>
+                    <Flex justify={"space-between"}>
+                        <Heading>Custom Dashboard Page</Heading>
+                        <Button colorScheme={"messenger"} variant={"outline"}>
+                            Logout
+                        </Button>
+                    </Flex>
+                    <Text>You need login to access this page</Text>
+                </Stack>
+                <Stack gap={5}>
+                    <Flex>
+                        <Button onClick={onOpen} colorScheme={"messenger"}>
+                            Trigger modal
+                        </Button>
+                    </Flex>
+                    <Modal onClose={onClose} isOpen={isOpen} isCentered>
+                        <ModalOverlay />
+                        <ModalContent>
+                            <ModalHeader>Modal Title</ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody>
+                                Lorem ipsum dolor sit amet consectetur,
+                                adipisicing elit. Quod inventore ducimus ut
+                                veritatis repellendus at sapiente sequi dolor
+                                assumenda fugit, obcaecati recusandae, nemo
+                                iusto magnam nihil cupiditate nam a quasi!
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button onClick={onClose}>Close</Button>
+                            </ModalFooter>
+                        </ModalContent>
+                    </Modal>
+                </Stack>
+            </Stack>
+        </>
     );
 }

@@ -14,4 +14,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::middleware('auth')->group(function () {
+    Route::get('/custom', function () {
+        return Inertia::render('Dashboard');
+    });
+});
+
 require __DIR__ . '/auth.php';
