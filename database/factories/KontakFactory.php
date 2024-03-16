@@ -17,7 +17,10 @@ class KontakFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "nama" => $this->faker->name(),
+            "email" => $this->faker->safeEmail(),
+            "telepon" => $this->faker->phoneNumber(),
+            "alamat" => $this->faker->address(),
         ];
     }
 }
